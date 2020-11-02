@@ -7,19 +7,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Error type provide wrap for an error
 type Error struct {
-	Message    string
-	Location   string
-	RawError   error
-	Stack      []string
-	Code       int
-	StatusCode int
+	Message    string   `json:"message,omitempty"`
+	Location   string   `json:"location,omitempty"`
+	RawError   error    `json:"raw_error,omitempty"`
+	Stack      []string `json:"stack,omitempty"`
+	Code       int      `json:"code,omitempty"`
+	StatusCode int      `json:"status_code,omitempty"`
 }
 
+// Error implements error interface
 func (e *Error) Error() string {
 	return e.Message
 }
 
+// ThrowError may wrap a error with a friendly message
 func ThrowError(message string, e error, status ...int) (err error) {
 	var (
 		tmp *Error = new(Error)
@@ -50,6 +53,7 @@ func ThrowError(message string, e error, status ...int) (err error) {
 	return tmp
 }
 
+// GinHandleError add errors to the gin context
 func GinHandleError(c *gin.Context, err error, statusCode int) {
 	var (
 		e *Error
