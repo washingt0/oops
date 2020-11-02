@@ -39,7 +39,9 @@ func ThrowError(message string, e error, status ...int) (err error) {
 	}
 
 	if message == "" {
-		tmp.Message = err.Error()
+		tmp.Message = e.Error()
+	} else {
+		tmp.Message = message
 	}
 
 	tmp.Stack = getStack()
