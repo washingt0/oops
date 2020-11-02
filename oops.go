@@ -65,5 +65,5 @@ func GinHandleError(c *gin.Context, err error, statusCode int) {
 
 func getStack() (stack []string) {
 	// TODO: get stack
-	return
+	return []string{""}
 }
